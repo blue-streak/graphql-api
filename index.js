@@ -8,8 +8,9 @@ const app = express()
 
 const init = require('./lib/init')
 
-init.subscribe((config) => {
-  console.log(config.token)
+function start (config) {
+  process.env.APP_CONFIG = config
+  console.log(config)
 
   app.use(
     '/graphql',
@@ -25,7 +26,11 @@ init.subscribe((config) => {
   }))
 
   app.listen(
-    process.env.SERVE_PORT,
-    () => console.log('Server ready')
+    process.env.API_PORT,
+    () => console.log(`Server ready on port ${process.env.API_PORT}`)
   )
-})
+}
+
+init()
+  .then(start)
+  .catch((err) => console.log(err))
