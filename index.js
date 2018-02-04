@@ -34,3 +34,12 @@ function start (config) {
 init()
   .then(start)
   .catch((err) => console.log(err))
+
+/**
+ * Docker containers send a SIGTERM by default,
+ * right now we don't need any teardown, but could
+ * be placed here if needed
+ */
+process.on('SIGTERM', function () {
+  process.exit()
+})
