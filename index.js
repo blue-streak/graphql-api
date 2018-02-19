@@ -1,15 +1,14 @@
-const express = require('express')
 const jwt = require('express-jwt')
 const GraphQLHTTP = require('express-graphql')
 
 const schema = require('./lib/schema')
 
-const app = express()
+const app = require('./lib/app')
 
 const init = require('./lib/init')
 
 function start (config) {
-  process.env.APP_CONFIG = config
+  app.locals = config
   console.log(config)
 
   app.use(
